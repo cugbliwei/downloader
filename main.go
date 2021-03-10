@@ -72,7 +72,7 @@ func (hc *Downloader) SetAfterResponseWriteFile() {
 	})
 }
 
-func (hc *Downloader) Get(link string) (*resty.Response, []byte, error) {
+func (hc *Downloader) request(method, link string) (*resty.Response, []byte, error) {
 	if hc.isMock {
 		log.Infof("%s 从文件: %s 中获取源码", hc.sessionId, hc.filename)
 		body, err := ioutil.ReadFile(hc.filedir + hc.filename)
@@ -91,8 +91,16 @@ func (hc *Downloader) Get(link string) (*resty.Response, []byte, error) {
 		resp, err := hc.Request.Get(link)
 		return resp, resp.Body(), err
 	}
-	resp, err := hc.Client.R().Get(link)
+	resp, err := hc.Client.R().Execute(method, link)
 	return resp, resp.Body(), err
+}
+
+func (hc *Downloader) Get(link string) (*resty.Response, []byte, error) {
+	return hc.request("GET", link)
+}
+
+func (hc *Downloader) Post(link string) (*resty.Response, []byte, error) {
+	return hc.request("POST", link)
 }
 
 func main() {
