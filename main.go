@@ -106,7 +106,7 @@ func (hc *Downloader) Post(link string) (*resty.Response, []byte, error) {
 func main() {
 	downloader := NewDownloader()
 	downloader.SetCrawlerName("baidu")
-	downloader.SetSessionId("123456")
+	downloader.SetSessionId("829122b5-1514-4662-86fb-95f55c17f263")
 
 	// 请求163页面，并保存源码
 	downloader.SetIsWrite(true)
