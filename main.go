@@ -21,7 +21,7 @@ type Downloader struct {
 
 func NewDownloader() *Downloader {
 	return &Downloader{
-		Client: resty.New().SetRetryCount(3).SetRedirectPolicy(resty.FlexibleRedirectPolicy(20)),
+		Client: resty.New(),
 	}
 }
 
